@@ -1,0 +1,53 @@
+[gd_scene load_steps=4 format=3 uid="uid://dgdyumg18xdoe"]
+
+[ext_resource type="Script" uid="uid://deqil52wrctkk" path="res://brush_ui.gd" id="1_n7m5o"]
+[ext_resource type="Theme" uid="uid://dsohn0rinyt37" path="res://new_theme.tres" id="1_xhvv8"]
+[ext_resource type="Script" uid="uid://kyhseo15di3f" path="res://WidthLabel.gd" id="3_uoerg"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchor_right = 0.5
+anchor_bottom = 0.73
+scale = Vector2(1, 1.02812)
+theme = ExtResource("1_xhvv8")
+script = ExtResource("1_n7m5o")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 600.0
+offset_bottom = 600.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorPicker" type="ColorPicker" parent="Panel/HBoxContainer"]
+layout_mode = 2
+picker_shape = 4
+sampler_visible = false
+color_modes_visible = false
+hex_visible = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Width"
+script = ExtResource("3_uoerg")
+
+[node name="HSlider" type="HSlider" parent="Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+min_value = 1.0
+max_value = 50.0
+value = 1.0
+
+[node name="CheckButton" type="CheckButton" parent="Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Use Width Curve"
+
+[connection signal="visibility_changed" from="." to="." method="_visibility_signal"]
+[connection signal="color_changed" from="Panel/HBoxContainer/ColorPicker" to="." method="_color_changed"]
+[connection signal="value_changed" from="Panel/HBoxContainer/VBoxContainer/HSlider" to="." method="_width_changed"]
+[connection signal="toggled" from="Panel/HBoxContainer/VBoxContainer/CheckButton" to="." method="_width_toggled"]
